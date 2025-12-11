@@ -14,8 +14,15 @@ import squidpy as sq
 from scipy import ndimage as ndi
 import skimage.segmentation as seg
 from skimage import segmentation, morphology
-from skimage.segmentation import watershed
+from skimage.segmentation import random_walker, watershed
 from skimage.feature import peak_local_max
+from skimage.morphology import (
+    binary_dilation,
+    binary_erosion,
+    dilation,
+    erosion,
+    square,
+)
 from skimage import filters
 from shapely import Polygon, Point
 from tqdm import tqdm
@@ -73,6 +80,61 @@ def get_spatial_neighborhood_graph(
         hop_queue = new_queue
 
     return neighborhood_graph
+
+# def get_spatial_nn(cell_ind: int, spatial_connectivities, spatial_distances):
+#     """Get neighbors of cell.
+
+#     Args:
+#         cell: Cell barcode
+#         adata: Anndata object with spatial connectivities.
+#     """
+
+#     # neighbors = np.where(
+#     #    spatial_connectivities[cell_ind, :] > 0
+#     # )
+#     # if len(neighbors) == 0:
+#     #     return [], []
+#     # else:
+#     #     neighbors = neighbors[0]
+#     # distances = spatial_distances[cell_ind, neighbors]
+#     neighbors = np.where(
+#         spatial_connectivities[cell_ind, :].todense() > 0
+#     )[1]
+#     distances = spatial_distances[cell_ind, neighbors].todense()
+
+#     return neighbors, np.ravel(distances.flatten())
+
+# def get_spatial_neighborhood_graph(
+#     cell_ind: int, spatial_connectivities, spatial_distances, number_of_hops: int = 1
+# ) -> nx.DiGraph:
+#     """Renders a spatial neighborhood as a graph.
+
+#     Args:
+#         cell: Cell barcode
+#         adata: Anndata with spatial coordinates
+#         number_of_hops: Number of hops to include
+
+#     Returns:
+#         A Networkx graph of the neighborhood.
+#     """
+
+#     neighborhood_graph = nx.Graph()
+
+#     hop_queue = [cell_ind]
+#     neighborhood_graph.add_node(cell_ind)
+#     for hops in range(number_of_hops):
+#         new_queue = []
+#         while len(hop_queue) > 0:
+#             node = hop_queue.pop(0)
+#             neighbors, distances = get_spatial_nn(node, spatial_connectivities, spatial_distances)
+
+#             for neighbor, distance in zip(neighbors, distances):
+#                 neighborhood_graph.add_edge(node, neighbor, distance=distance)
+#                 new_queue.append(neighbor)
+
+#         hop_queue = new_queue
+
+#     return neighborhood_graph
 
 def quantify_neighborhood(
     cell: str,

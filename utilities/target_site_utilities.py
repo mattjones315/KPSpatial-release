@@ -11,7 +11,7 @@ import networkx as nx
 import pandas as pd
 
 sys.path.append(
-    "/path/to/KPSpatial-release/utilities/"
+    "/Users/matthewjones/projects/kptc_spatial/KPSpatial-release/utilities/"
 )
 import spatial_utilities
 
