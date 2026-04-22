@@ -10,10 +10,13 @@ import numpy as np
 import networkx as nx
 import pandas as pd
 
+# sys.path.append(
+#    "/Users/matthewjones/projects/kptc_spatial/KPSpatial-release/utilities/"
+#)
 sys.path.append(
-    "/Users/matthewjones/projects/kptc_spatial/KPSpatial-release/utilities/"
+        "/orcd/data/ki/001/lab/jones/mgjones/kptc_spatial/KPSpatial-release"
 )
-import spatial_utilities
+from utilities import spatial_utilities
 
 
 def create_target_site_meta(allele_table: pd.DataFrame) -> pd.DataFrame:
