@@ -1,0 +1,16 @@
+Layer	Puck	Tumor	NN_score	Significance
+Layer1	Puck1	Tumor-1	0.6965091549529788	0.0
+Layer1	Puck1	Tumor-2	1.0	0.0
+Layer1	Puck1	Tumor-0	0.7522627965043694	0.0
+Layer2	Puck1	Tumor-1	0.8008158508158516	0.0
+Layer2	Puck1	Tumor-0	0.8407996146435454	0.0
+Layer2	Puck1	Tumor-2	1.0	0.0
+Layer3	Puck1	Tumor-0	0.6713576158940397	0.0
+Layer3	Puck1	Tumor-1	0.7852708058124175	0.0
+Layer3	Puck1	Tumor-2	1.0	0.0
+Layer3	Puck2	Tumor-0	1.0	0.0
+Layer3	Puck2	Tumor-2	1.0	0.0
+Layer3	Puck2	Tumor-1	1.0	0.0
+Layer4	Puck1	Tumor-1	1.0	0.0
+Layer4	Puck1	Tumor-2	1.0	0.0
+Layer4	Puck1	Tumor-0	0.6807807807807809	0.005
