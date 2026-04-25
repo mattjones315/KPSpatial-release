@@ -23,9 +23,8 @@ from tqdm import tqdm
 import typer
 
 sys.path.append(
-    "/Users/matthewjones/projects/kptc_spatial/KPTracer-spatial/utilities/"
+    "/path/to/KPSpatial-release/utilities/"
 )
-import spatial_utilities
 import target_site_utilities
 
 app = typer.Typer()

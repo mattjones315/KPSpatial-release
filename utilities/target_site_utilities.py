@@ -10,9 +10,6 @@ import numpy as np
 import networkx as nx
 import pandas as pd
 
-# sys.path.append(
-#    "/Users/matthewjones/projects/kptc_spatial/KPSpatial-release/utilities/"
-#)
 sys.path.append(
         "/orcd/data/ki/001/lab/jones/mgjones/kptc_spatial/KPSpatial-release"
 )

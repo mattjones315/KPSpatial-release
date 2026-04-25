@@ -26,8 +26,9 @@ import tqdm
 app = typer.Typer()
 
 from cassiopeia.mixins import CassiopeiaTreeWarning
-sys.path.append("/path/to/KPSpatial-release/utilities")
-import target_site_utilities
+# sys.path.append("/path/to/KPSpatial-release/utilities")
+sys.path.append("/orcd/data/ki/001/lab/jones/mgjones/kptc_spatial/KPSpatial-release")
+from utilities import target_site_utilities
 
 
 @app.command()
