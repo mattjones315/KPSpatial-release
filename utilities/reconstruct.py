@@ -207,8 +207,9 @@ def cassiopeia_hybrid(
     ilp_solver = cas.solver.ILPSolver(
         convergence_time_limit=convergence_time,
         maximum_potential_graph_layer_size=maximum_potential_graph_layer_size,
+        maximum_potential_graph_lca_distance=maximum_potential_graph_lca_distance,
         weighted=weighted,
-	seed=seed,
+	    seed=seed,
     )
 
     if lca_cutoff:
@@ -342,6 +343,11 @@ def cassiopeia_hybrid_neighbor_joining(
 def create_character_matrix(
     allele_table_path: str = typer.Argument(..., help="Path to allele table."),
     anndata_path: str = typer.Argument(..., help="Path to Anndata."),
+    adata = typer.Option(
+        None, help='Anndata object.'),
+    allele_table = typer.Option(
+        None, help="Allele table"
+    ),
     allele_priors_path: Optional[str] = typer.Option(
         None, help="Path to allele priors."
     ),
@@ -390,8 +396,10 @@ def create_character_matrix(
 ) -> Union[None, Tuple[pd.DataFrame, dict]]:
     """Creates a character matrix from an allele table."""
 
+    if allele_table is None:
+        allele_table = pd.read_csv(allele_table_path, sep="\t")
+
     allele_priors = pd.read_csv(allele_priors_path, sep="\t", index_col=0)
-    allele_table = pd.read_csv(allele_table_path, sep="\t")
 
     allele_table = allele_table[
         ~allele_table[["r1", "r2", "r3"]].isna().any(axis=1)
@@ -401,15 +409,19 @@ def create_character_matrix(
             ["UMI", "readCount"], ascending=False
         ).drop_duplicates(["cellBC", "intBC"])
 
-    adata = anndata.read(anndata_path)
+    if adata is None:
+        adata = anndata.read(anndata_path)
     print(
         f">> Filtering out spots with fewer than {minimum_percent_uncut}% "
-        "uncut sites and {minimum_spot_umi_support} UMIs."
+        f"uncut sites and {minimum_spot_umi_support} UMIs."
     )
+    umi_per_cell = allele_table.groupby('cellBC').agg({'UMI': sum})
+    keep_cells = umi_per_cell[umi_per_cell['UMI'] >= minimum_intbc_umi_support].index.values
+    allele_table = allele_table[allele_table['cellBC'].isin(keep_cells)]
+
     overlapping_cells = np.intersect1d(
         adata[
             (adata.obs["PercentUncut"] <= minimum_percent_uncut)
-            & (adata.obs["TS-UMI"] >= minimum_spot_umi_support)
         ].obs_names,
         allele_table["cellBC"].values,
     )
@@ -497,7 +509,7 @@ def create_character_matrix(
                     j,
                     prev_character_matrix_imputed,
                     neighborhood_graph=spatial_graph,
-                    number_of_hops=1,
+                    number_of_hops=imputation_hops,
                 )
                 if (
                     prop_votes >= imputation_concordance
