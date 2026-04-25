@@ -1,6 +1,6 @@
 # KPSpatial-release
 
-<img src="assets/kpspatial_schematic.png" alt="Project Logo" width="80%">
+<img src="assets/kpspatial_schematic.png" alt="Project Logo" width="100%">
 
 Code &amp; scripts for reproducing spatial-lineage analyses in [Jones*, Sun* et al.](https://www.biorxiv.org/content/10.1101/2024.10.21.619529v2).
 
