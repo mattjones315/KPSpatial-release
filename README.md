@@ -9,5 +9,5 @@ Code &amp; scripts for reproducing spatial-lineage analyses in [Jones*, Sun* et 
 * `./data/`: General data for project.
 
 To run these notebooks, clone this repository and add the path to your system path to run utilities.
-You may find the processed datasets on Zenodo ([10.5281/zenodo.19771805](10.5281/zenodo.19771805))
+You may find the processed datasets on Zenodo ([10.5281/zenodo.19771805](https://doi.org/10.5281/zenodo.19771805))
 
